@@ -7,12 +7,29 @@ from PIL import Image
 import numpy as np
 import tensorflow as tf
 import cv2 
+import gdown
 
 app = Flask(__name__)
 CORS(app)
 
-# Load the pre-trained model (Ensure your model is in the same directory or provide the correct path)
-#model = tf.keras.models.load_model('age.h5')
+# Extract the file ID from the Google Drive URL
+GOOGLE_DRIVE_FILE_ID = '1lO5tPChAiPxj3EE46044nhWbLr_wa3Nr'  # Replace with your file ID
+MODEL_PATH = 'age.h5'
+
+def download_model():
+    if not os.path.exists(MODEL_PATH):
+        print("Downloading model from Google Drive...")
+        # Construct the correct URL using the file ID
+        url = f"https://drive.google.com/uc?id={GOOGLE_DRIVE_FILE_ID}"
+        gdown.download(url, MODEL_PATH, quiet=False)
+        print("Model downloaded successfully.")
+
+# Ensure the model is downloaded
+download_model()
+
+# Load the pre-trained model
+model = tf.keras.models.load_model(MODEL_PATH)
+
 
 # Load OpenCV's pre-trained face detector (Haar Cascade or DNN can be used)
 face_cascade = cv2.CascadeClassifier(cv2.data.haarcascades + 'haarcascade_frontalface_default.xml')
