@@ -4,11 +4,10 @@ FROM python:3.10-slim
 # Set the working directory in the container
 WORKDIR /app
 
-# Install system dependencies for OpenCV, GTK, and other necessary libraries
+# Install system dependencies for OpenCV and other necessary libraries
 RUN apt-get update && apt-get install -y \
     libgl1-mesa-glx \
     libglib2.0-0 \
-    libgthread-2.0-0 \
     && rm -rf /var/lib/apt/lists/*
 
 # Copy the current directory contents into the container at /app
