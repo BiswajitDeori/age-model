@@ -54,7 +54,7 @@ def detect_face(image):
 
 def preprocess_image(image):
     """Preprocess image to fit model input."""
-    image = image.resize((128, 128))  # Resize to model input size (128x128)
+    image = image.resize((64, 64))  # Resize to model input size (128x128)
     image = np.array(image) / 255.0  # Normalize to 0-1
     return np.expand_dims(image, axis=0)  # Add batch dimension
 
